@@ -1,0 +1,122 @@
+name: Build and Release Android APK
+
+on:
+  push:
+    branches:
+      - master
+      - main
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    name: Build & Release Android APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: ☕ Setup Java JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: 🤖 Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🔍 Verify TypeScript
+        run: npm run typecheck
+
+      - name: 🧪 Run Unit Test Suite
+        run: npm test
+
+      - name: ⚙️ Expo Prebuild Android
+        run: npx expo prebuild --platform android --no-install
+
+      - name: 🔑 Make Gradlew Executable
+        run: chmod +x android/gradlew
+
+      - name: 🚀 Build Release APK with Gradle
+        run: |
+          cd android
+          ./gradlew assembleRelease --no-daemon --stacktrace
+          cd ..
+
+      - name: 📋 Prepare APK Artifacts
+        run: |
+          mkdir -p build-artifacts
+          RELEASE_APK="android/app/build/outputs/apk/release/app-release.apk"
+          if [ -f "$RELEASE_APK" ]; then
+            cp "$RELEASE_APK" build-artifacts/MemoryMesh-v1.0.0.apk
+            cp "$RELEASE_APK" build-artifacts/app-release.apk
+            echo "Release APK successfully copied."
+          else
+            echo "Release APK not found at $RELEASE_APK"
+            find android/app/build/outputs -type f -name "*.apk"
+            exit 1
+          fi
+
+      - name: 📤 Upload APK Artifact to Workflow Run
+        uses: actions/upload-artifact@v4
+        with:
+          name: MemoryMesh-v1.0.0-APK
+          path: build-artifacts/MemoryMesh-v1.0.0.apk
+          if-no-files-found: error
+
+      - name: 🏷️ Determine Tag Name
+        id: tag_info
+        run: |
+          if [[ "${{ github.ref_type }}" == "tag" ]]; then
+            echo "tag=${{ github.ref_name }}" >> $GITHUB_OUTPUT
+          else
+            echo "tag=v1.0.0" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 🌟 Create GitHub Release & Publish APK
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag_info.outputs.tag }}
+          name: Memory Mesh ${{ steps.tag_info.outputs.tag }} - Android APK
+          draft: false
+          prerelease: false
+          make_latest: true
+          generate_release_notes: true
+          body: |
+            ## 🧠 Memory Mesh - Android Release
+
+            Welcome to the official release of **Memory Mesh**!
+
+            ### 📱 Download & Installation
+            - Download the attached **`MemoryMesh-v1.0.0.apk`** below.
+            - Tap to install on any Android device (allow *Install unknown apps* when prompted).
+
+            ### ✨ Key Features
+            - 🕸️ **Interactive Force-Directed Knowledge Graph**: Visualize concepts, notes, and auto-discovered neural links in an interactive canvas.
+            - 📴 **100% Offline & Private**: All notes, connections, and metadata stay strictly stored on-device.
+            - 🗂️ **Multi-Format Knowledge Capture**: Concepts, code snippets with syntax highlighting, articles, books, ideas, reflections, and image attachments.
+            - 🔄 **Synaptic Spaced Repetition (SM-2)**: Automated flashcards and memory intervals to combat the forgetting curve.
+            - 🔍 **Instant Offline Search & Filtering**: Multi-term matching across titles, content, code, and tags.
+            - 📊 **Deep Mesh Analytics**: Network graph degree metrics, retention rate, mastery tracking, and cluster insights.
+            - 🎨 **Sleek Cyber-Dark Aesthetic**: Custom high-contrast theme optimized for focus and visual clarity.
+          files: |
+            build-artifacts/MemoryMesh-v1.0.0.apk
+            build-artifacts/app-release.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

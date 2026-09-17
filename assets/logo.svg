@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="bgGrad" cx="50%" cy="40%" r="60%" fx="50%" fy="30%">
+      <stop offset="0%" stop-color="#182238" />
+      <stop offset="60%" stop-color="#0E1424" />
+      <stop offset="100%" stop-color="#070A12" />
+    </radialGradient>
+
+    <!-- Mesh Glow Gradient -->
+    <linearGradient id="meshGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06B6D4" stop-opacity="0.9" />
+      <stop offset="50%" stop-color="#6366F1" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#A855F7" stop-opacity="0.7" />
+    </linearGradient>
+
+    <linearGradient id="meshGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" stop-opacity="0.8" />
+      <stop offset="50%" stop-color="#3B82F6" stop-opacity="0.75" />
+      <stop offset="100%" stop-color="#6366F1" stop-opacity="0.9" />
+    </linearGradient>
+
+    <linearGradient id="coreGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="50%" stop-color="#818CF8" />
+      <stop offset="100%" stop-color="#C084FC" />
+    </linearGradient>
+
+    <!-- Node Gradients -->
+    <radialGradient id="nodeCyan" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#67E8F9" />
+      <stop offset="60%" stop-color="#06B6D4" />
+      <stop offset="100%" stop-color="#0891B2" />
+    </radialGradient>
+
+    <radialGradient id="nodeIndigo" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#A5B4FC" />
+      <stop offset="60%" stop-color="#6366F1" />
+      <stop offset="100%" stop-color="#4338CA" />
+    </radialGradient>
+
+    <radialGradient id="nodeEmerald" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#6EE7B7" />
+      <stop offset="60%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#047857" />
+    </radialGradient>
+
+    <radialGradient id="nodeAmber" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#FDE68A" />
+      <stop offset="60%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#B45309" />
+    </radialGradient>
+
+    <radialGradient id="nodeRose" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#FDA4AF" />
+      <stop offset="60%" stop-color="#F43F5E" />
+      <stop offset="100%" stop-color="#BE123C" />
+    </radialGradient>
+
+    <!-- Filters -->
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <filter id="deepShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+
+    <filter id="nodeShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+  </defs>
+
+  <!-- App Icon Background with smooth squircle shape -->
+  <rect width="512" height="512" rx="116" fill="url(#bgGrad)" />
+
+  <!-- Outer Ambient Radial Halo -->
+  <circle cx="256" cy="256" r="190" fill="none" stroke="url(#meshGrad1)" stroke-width="1.5" stroke-dasharray="6 8" opacity="0.25" />
+  <circle cx="256" cy="256" r="140" fill="none" stroke="url(#meshGrad2)" stroke-width="1.5" opacity="0.2" />
+
+  <!-- Background Synaptic Waves / Field Lines -->
+  <g filter="url(#softGlow)">
+    <!-- Arc Pathways -->
+    <path d="M 256,108 Q 330,170 388,172" fill="none" stroke="url(#meshGrad1)" stroke-width="3.5" stroke-linecap="round" opacity="0.75" />
+    <path d="M 388,172 Q 410,270 376,360" fill="none" stroke="url(#meshGrad1)" stroke-width="3" stroke-linecap="round" opacity="0.7" />
+    <path d="M 376,360 Q 256,410 136,360" fill="none" stroke="url(#meshGrad2)" stroke-width="3.5" stroke-linecap="round" opacity="0.8" />
+    <path d="M 136,360 Q 102,270 124,172" fill="none" stroke="url(#meshGrad2)" stroke-width="3" stroke-linecap="round" opacity="0.7" />
+    <path d="M 124,172 Q 182,170 256,108" fill="none" stroke="url(#meshGrad1)" stroke-width="3.5" stroke-linecap="round" opacity="0.75" />
+
+    <!-- Core Synaptic Bridges connecting to Central Nexus -->
+    <path d="M 256,256 L 256,108" fill="none" stroke="url(#coreGlow)" stroke-width="4.5" stroke-linecap="round" opacity="0.9" />
+    <path d="M 256,256 L 388,172" fill="none" stroke="url(#coreGlow)" stroke-width="4" stroke-linecap="round" opacity="0.85" />
+    <path d="M 256,256 L 376,360" fill="none" stroke="url(#coreGlow)" stroke-width="4" stroke-linecap="round" opacity="0.85" />
+    <path d="M 256,256 L 136,360" fill="none" stroke="url(#coreGlow)" stroke-width="4" stroke-linecap="round" opacity="0.85" />
+    <path d="M 256,256 L 124,172" fill="none" stroke="url(#coreGlow)" stroke-width="4" stroke-linecap="round" opacity="0.85" />
+
+    <!-- Cross Synaptic Cross-Connections (Knowledge Mesh Interlinks) -->
+    <path d="M 124,172 Q 256,210 388,172" fill="none" stroke="#6366F1" stroke-width="2" stroke-dasharray="5 5" opacity="0.5" />
+    <path d="M 136,360 Q 256,310 388,172" fill="none" stroke="#06B6D4" stroke-width="2" stroke-dasharray="4 6" opacity="0.45" />
+    <path d="M 376,360 Q 256,310 124,172" fill="none" stroke="#A855F7" stroke-width="2" stroke-dasharray="4 6" opacity="0.45" />
+  </g>
+
+  <!-- Secondary Satellite Pulses (Micro-Concepts) -->
+  <circle cx="316" cy="138" r="4.5" fill="#38BDF8" opacity="0.8" />
+  <circle cx="396" cy="268" r="4" fill="#818CF8" opacity="0.75" />
+  <circle cx="256" cy="386" r="5" fill="#10B981" opacity="0.8" />
+  <circle cx="116" cy="268" r="4" fill="#F43F5E" opacity="0.75" />
+  <circle cx="196" cy="138" r="4.5" fill="#F59E0B" opacity="0.8" />
+
+  <!-- Outer Knowledge Nodes with Badges -->
+  <!-- Top Node: Concept (Cyan) -->
+  <g filter="url(#nodeShadow)">
+    <circle cx="256" cy="108" r="26" fill="#0E1424" stroke="url(#meshGrad1)" stroke-width="2" />
+    <circle cx="256" cy="108" r="18" fill="url(#nodeCyan)" filter="url(#softGlow)" />
+    <circle cx="256" cy="108" r="7" fill="#FFFFFF" opacity="0.9" />
+  </g>
+
+  <!-- Top-Right Node: Code Snippet (Indigo) -->
+  <g filter="url(#nodeShadow)">
+    <circle cx="388" cy="172" r="24" fill="#0E1424" stroke="url(#meshGrad1)" stroke-width="2" />
+    <circle cx="388" cy="172" r="16" fill="url(#nodeIndigo)" filter="url(#softGlow)" />
+    <circle cx="388" cy="172" r="6" fill="#FFFFFF" opacity="0.9" />
+  </g>
+
+  <!-- Bottom-Right Node: Spaced Repetition / Memory (Emerald) -->
+  <g filter="url(#nodeShadow)">
+    <circle cx="376" cy="360" r="24" fill="#0E1424" stroke="url(#meshGrad2)" stroke-width="2" />
+    <circle cx="376" cy="360" r="16" fill="url(#nodeEmerald)" filter="url(#softGlow)" />
+    <circle cx="376" cy="360" r="6" fill="#FFFFFF" opacity="0.9" />
+  </g>
+
+  <!-- Bottom-Left Node: Idea (Rose) -->
+  <g filter="url(#nodeShadow)">
+    <circle cx="136" cy="360" r="24" fill="#0E1424" stroke="url(#meshGrad2)" stroke-width="2" />
+    <circle cx="136" cy="360" r="16" fill="url(#nodeRose)" filter="url(#softGlow)" />
+    <circle cx="136" cy="360" r="6" fill="#FFFFFF" opacity="0.9" />
+  </g>
+
+  <!-- Top-Left Node: Article / Reflection (Amber) -->
+  <g filter="url(#nodeShadow)">
+    <circle cx="124" cy="172" r="24" fill="#0E1424" stroke="url(#meshGrad1)" stroke-width="2" />
+    <circle cx="124" cy="172" r="16" fill="url(#nodeAmber)" filter="url(#softGlow)" />
+    <circle cx="124" cy="172" r="6" fill="#FFFFFF" opacity="0.9" />
+  </g>
+
+  <!-- Central Memory Core / Knowledge Nexus -->
+  <g filter="url(#deepShadow)">
+    <!-- Core Outer Pulsing Ring -->
+    <circle cx="256" cy="256" r="54" fill="#0B0F19" stroke="url(#coreGlow)" stroke-width="3" />
+    <!-- Core Middle Gradient Disk -->
+    <circle cx="256" cy="256" r="42" fill="url(#coreGlow)" opacity="0.25" filter="url(#softGlow)" />
+    <circle cx="256" cy="256" r="32" fill="url(#coreGlow)" />
+    <!-- Center Radiant Core -->
+    <circle cx="256" cy="256" r="16" fill="#FFFFFF" filter="url(#softGlow)" />
+
+    <!-- Synaptic Core Monogram / Icon Symbol inside Core (Memory Fork / Neural Split) -->
+    <path d="M 256,236 L 256,252 M 256,252 L 243,267 M 256,252 L 269,267" fill="none" stroke="#4338CA" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+    <circle cx="243" cy="267" r="2.5" fill="#4338CA" />
+    <circle cx="269" cy="267" r="2.5" fill="#4338CA" />
+    <circle cx="256" cy="236" r="2.5" fill="#4338CA" />
+  </g>
+</svg>

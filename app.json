@@ -1,17 +1,25 @@
 {
   "expo": {
-    "name": "memory-mesh",
+    "name": "Memory Mesh",
     "slug": "memory-mesh",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0B0F19"
+    },
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#0B0F19",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.memorymesh.app"
     },
     "android": {
+      "package": "com.memorymesh.app",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
+        "backgroundColor": "#0B0F19",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
